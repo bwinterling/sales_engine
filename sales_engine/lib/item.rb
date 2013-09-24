@@ -1,25 +1,26 @@
 require 'csv'
 
-class Merchant
 
-  attr_reader :name, :created, :updated
+class Item
+
+  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+
 
   def initialize(id)
-    @name = ""
-    @created = ""
-    @updated = ""
-    filename = '../data/merchants.csv'
-    file_data = CSV.read(filename, headers: true, header_converters: :symbol)
 
-    file_data.each do |row|
-      if row[:id] == id
-        @name << row[:name]
-        @created << row[:created_at]
-        @updated << row[:updated_at]
-      end
-    end
-  
+    filename = "../data/items.csv"
+    file_data =  CSV.read(filename, headers: true, header_converters: :symbol)
+
+    item = file_data.find { |row| row[:id] == id  }
+
+    @name = item[:name]
+    @description = item[:description]
+    @unit_price = item[:unit_price]
+    @merchant_id = item[:merchant_id]
+    @created_at = item[:created_at]
+    @updated_at = item[:updated_at]
+      
   end
 
-#end of Merchant class
 end
+

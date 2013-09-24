@@ -2,20 +2,19 @@ require 'csv'
 
 class Merchant
 
-  attr_reader :name, :created, :updated
+  attr_reader :merchant_id, :name, :created, :updated
 
-  def initialize(id)
+  def initialize(csv_row_data)
     
-    filename = '../data/merchants.csv'
-    file_data = CSV.read(filename, headers: true, header_converters: :symbol)
-
-    merchant = file_data.find { |row| row[:id] == id }
-    
-    @name = merchant[:name]
-    @created = merchant[:created_at]
-    @updated = merchant[:updated_at]
+    @merchant_id = csv_row_data[:id]
+    @name = csv_row_data[:name]
+    @created = csv_row_data[:created_at]
+    @updated = csv_row_data[:updated_at]
 
   end
 
+  def items
+    #find all items with merchant_id 
+  end
 #end of Merchant class
 end

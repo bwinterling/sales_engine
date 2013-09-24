@@ -24,10 +24,6 @@ class SalesEngine
 #end of SalesEngine class
 end
 
-class Merchants
-
-
-end
 
 engine = SalesEngine.new
 engine.startup

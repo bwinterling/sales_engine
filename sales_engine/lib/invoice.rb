@@ -1,28 +1,24 @@
 require 'csv'
 
+
 class Invoice
 
-  attr_reader :customer_id, :merchant_id, :status, :created, :updated
+  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
 
   def initialize(id)
-    @customer_id = ""
-    @merchant_id = ""
-    @status = ""
-    @created = ""
-    @updated = ""
-    filename = '../data/invoices.csv'
+    
+    filename = "../data/invoices.csv"
+    file_data =  CSV.read(filename, headers: true, header_converters: :symbol)
 
-    file_data = CSV.read(filename, headers: true, header_converters: :symbol)
+    invoice = file_data.find { |row| row[:id] == id  }
+      
+    @customer_id = invoice[:customer_id]
+    @merchant_id = invoice[:merchant_id]
+    @status = invoice[:status]
+    @created_at = invoice[:created_at]
+    @updated_at = invoice[:updated_at]
+      
+    
 
-    file_data.each do |row|
-      if row[:id] == id
-        @name << row[:name]
-        @created << row[:created_at]
-        @updated << row[:updated_at]
-      end
-    end
-  
-  end
-
-#end of Merchant class
 end
+

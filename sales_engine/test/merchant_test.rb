@@ -7,10 +7,17 @@ require_relative '../lib/merchant'
 class MerchantTest < Minitest::Test
 
   def test_merchant_loaded
-    merchant = Merchant.new('1')
-    assert_equal 'Schroeder-Jerde', merchant.name
-    merchant3 = Merchant.new('3')
-    assert_equal '2012-03-27 14:53:59 UTC', merchant3.created
+    row = {
+      id: '1',
+      name: "George",
+      created_at: Time.new,
+      updated_at: Time.new
+    }
+
+    merchant = Merchant.new(row)
+    assert_equal 'George', merchant.name
+    assert_equal '1', merchant.merchant_id
+    refute_nil merchant.created
   end
 
 # end of MerchantTest class
