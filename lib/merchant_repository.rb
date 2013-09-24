@@ -1,8 +1,10 @@
 require 'csv'
+require_relative 'merchant'
+require 'pry'
 
 class MerchantRepository
 
-  attr_reader :merchant_csv
+  attr_reader :merchant_csv, :merchants
 
   def initialize
     @merchant_csv ||= load_merchant_csv
@@ -20,18 +22,22 @@ class MerchantRepository
   end
 
   def random
+    random_id = ""
+    total_rows = @merchants.count
+    random_id = rand(total_rows).to_s
+    random_merchant = @merchants.find { |merchant| merchant.id == random_id }
   end
 
-  def find_by_name
+  def find_by_name(match)
+    @merchants.find { |merchant| merchant.name.downcase == match.downcase }
   end
 
-  def find_all_by_name
+  def find_all_by_name(match)
+    @merchants.find_all { |merchant| merchant.name.downcase == match.downcase }
   end
 
-  def find_by_merchant_id
-  end
-
-  def find_all_by_merchant_id
+  def find_by_merchant_id(match)
+    @merchants.find { |merchant| merchant.id == match }
   end
 
 
