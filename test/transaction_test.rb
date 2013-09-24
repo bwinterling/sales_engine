@@ -4,14 +4,23 @@ require 'minitest/pride'
 
 require_relative '../lib/transaction'
 
-class TransactionTest < Minitest::Test
+class ItemTest < Minitest::Test
 
   def test_transaction_loaded
-    transaction = Transaction.new('1')
-    assert_equal '4654405418249632', transaction.credit_card_number
-    transaction3 = Transaction.new('3')
-    assert_equal 'success', transaction3.result
-  end
+    row = {
+      invoice_id: "4",
+      credit_card_number: "26",
+      credit_card_expiration_date: "19.99",
+      result: "aprooved",
+      created_at: Time.new,
+      updated_at: Time.new
+      }
 
-# end of TransactionTest class
+    transaction = Transaction.new(row)
+    assert_equal '19.99', transaction.credit_card_expiration_date
+    assert_equal 'aprooved', transaction.result
+    assert_equal '26', transaction.credit_card_number
+    assert_equal '4', transaction.invoice_id
+    refute_nil transaction.created_at
+  end
 end

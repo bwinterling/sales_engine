@@ -6,19 +6,22 @@ require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
 
-  def test_invoice_item_item_id
-    invoice_item = InvoiceItem.new('1')
-    assert_equal '539', invoice_item.item_id
-  end
+  def test_invoice_item_loaded
+    row = {
+      item_id: "6",
+      invoice_id: "4",
+      quantity: "26",
+      unit_price: "19.99",
+      created_at: Time.new,
+      updated_at: Time.new
+      }
 
-  def test_invoice_item_invoice_id
-    invoice_item2 = InvoiceItem.new('2')
-    assert_equal '1', invoice_item2.invoice_id
+    invoice_item = InvoiceItem.new(row)
+    assert_equal '19.99', invoice_item.unit_price
+    assert_equal '26', invoice_item.quantity
+    assert_equal '4', invoice_item.invoice_id
+    assert_equal '6', invoice_item.item_id
+    refute_nil invoice_item.created_at
   end
-
-  def test_invoice_item_quantity
-    invoice_item9 = InvoiceItem.new('9')
-    assert_equal '6', invoice_item9.quantity
-  end  
 
 end
