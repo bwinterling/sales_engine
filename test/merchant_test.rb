@@ -16,8 +16,8 @@ class MerchantTest < Minitest::Test
 
     merchant = Merchant.new(row)
     assert_equal 'George', merchant.name
-    assert_equal '1', merchant.merchant_id
-    refute_nil merchant.created
+    assert_equal '1', merchant.id
+    refute_nil merchant.created_at
   end
 
 # end of MerchantTest class

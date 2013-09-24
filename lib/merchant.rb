@@ -2,14 +2,14 @@ require 'csv'
 
 class Merchant
 
-  attr_reader :merchant_id, :name, :created, :updated
+  attr_reader :id, :name, :created_at, :updated_at
 
   def initialize(csv_row_data)
     
-    @merchant_id = csv_row_data[:id]
+    @id = csv_row_data[:id]
     @name = csv_row_data[:name]
-    @created = csv_row_data[:created_at]
-    @updated = csv_row_data[:updated_at]
+    @created_at = csv_row_data[:created_at]
+    @updated_at = csv_row_data[:updated_at]
 
   end
 
