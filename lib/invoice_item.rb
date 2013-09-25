@@ -2,10 +2,11 @@ require 'csv'
 
 class InvoiceItem
 
-  attr_reader :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
+  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
 
   def initialize(csv_row_data)
 
+    @id = csv_row_data[:id]
     @item_id = csv_row_data[:item_id]
     @invoice_id = csv_row_data[:invoice_id]
     @quantity = csv_row_data[:quantity]
