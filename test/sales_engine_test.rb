@@ -10,9 +10,8 @@ class SalesEngineTest < Minitest::Test
     @engine.startup
   end
 
-  def test_instance_exists
-    skip
-    refute_nil @engine
-  end
+  # def test_instance_exists
+  #   refute_nil @engine
+  # end
 
 end

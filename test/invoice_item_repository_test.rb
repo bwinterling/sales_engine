@@ -4,7 +4,7 @@ require 'minitest/pride'
 
 require_relative '../lib/invoice_item_repository'
 
-class TransactionRepositoryTest < Minitest::Test
+class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
     @repository = InvoiceItemRepository.new

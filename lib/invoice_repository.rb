@@ -1,13 +1,11 @@
 require 'csv'
 require_relative 'invoice'
-require 'pry'
 
 class InvoiceRepository
 
   attr_reader :invoice_csv, :invoice
 
   def initialize
-    @invoice_id
     @invoice_csv ||= load_invoice_csv
     @invoice ||= all
   end

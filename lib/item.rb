@@ -8,6 +8,7 @@ class Item
 
   def initialize(csv_row_data)
 
+    @id = csv_row_data[:id]
     @name = csv_row_data[:name]
     @description = csv_row_data[:description]
     @unit_price = csv_row_data[:unit_price]
