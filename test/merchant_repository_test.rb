@@ -30,7 +30,7 @@ class MerchantRepositoryTest < Minitest::Test
     found = @repository.find_by_name('williamson Group')
     assert_equal 'Williamson Group', found.name
     found2 = @repository.find_by_name('Group')
-    refute_equal 'Group', found2.name
+    assert_nil found2
   end
 
   def test_merchant_repository_find_by_merchant_id
