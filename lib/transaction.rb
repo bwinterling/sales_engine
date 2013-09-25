@@ -2,10 +2,11 @@ require 'csv'
 
 class Transaction
 
-  attr_reader :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
+  attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
 
   def initialize(csv_row_data)
 
+    @id = csv_row_data[:id]
     @invoice_id = csv_row_data[:invoice_id]
     @credit_card_number = csv_row_data[:credit_card_number]
     @credit_card_expiration_date = csv_row_data[:credit_card_expiration_date]

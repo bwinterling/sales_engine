@@ -16,5 +16,10 @@ class Merchant
   def items
     #find all items with merchant_id 
   end
+
+  def invoices
+    invoices = InvoiceRepository.new.find_all_by_merchant_id(@id)
+    invoices
+  end
 #end of Merchant class
 end
