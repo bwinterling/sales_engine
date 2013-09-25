@@ -7,16 +7,21 @@ require_relative '../lib/invoice'
 class InvoiceTest < Minitest::Test
 
   def test_invoice_loaded
-    invoice = Invoice.new("1")
-    assert_equal "1", invoice.customer_id
+    row = {
+      id: "1",
+      customer_id: "1",
+      merchant_id: "26",
+      status: "shipped",
+      created_at: Time.new,
+      updated_at: Time.new
+      }
 
-    invoice = Invoice.new("3")
-    assert_equal "78", invoice.merchant_id
-
-
+    invoice = Invoice.new(row)
+    assert_equal 'shipped', invoice.status
+    assert_equal '26', invoice.merchant_id
+    assert_equal '1', invoice.customer_id
+    assert_equal '1', invoice.id
+    refute_nil invoice.created_at
   end
 
-
 end
-
-

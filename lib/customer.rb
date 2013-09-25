@@ -2,21 +2,21 @@ require 'csv'
 
 class Customer
 
-  attr_reader :first_name, :last_name, :created, :updated
+  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
-  def initialize(id)
+  def initialize(csv_row_data)
 
-    filename = '../data/customers.csv'
-    file_data = CSV.read(filename, headers: true, header_converters: :symbol)
-
-    customer = file_data.find { |row| row[:id] == id }
-
-    @first_name = customer[:first_name]
-    @last_name = customer[:last_name]
-    @created = customer[:created_at]
-    @updated = customer[:updated_at]
+    @id = csv_row_data[:id]
+    @first_name = csv_row_data[:first_name]
+    @last_name = csv_row_data[:last_name]
+    @created_at = csv_row_data[:created_at]
+    @updated_at = csv_row_data[:updated_at]
   
   end
 
-#end of Merchant class
+  def invoices
+    
+  end
+
+#end of Customer class
 end

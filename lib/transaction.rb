@@ -2,22 +2,20 @@ require 'csv'
 
 class Transaction
 
-  attr_reader :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created, :updated
+  attr_reader :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
 
-  def initialize(id)
+  def initialize(csv_row_data)
 
-    filename = '../data/transactions.csv'
-    file_data = CSV.read(filename, headers: true, header_converters: :symbol)
-
-    transaction = file_data.find { |row| row[:id] == id }
-
-    @invoice_id = transaction[:invoice_id]
-    @credit_card_number = transaction[:credit_card_number]
-    @credit_card_expiration_date = transaction[:credit_card_expiration_date]
-    @result = transaction[:result]
-    @created = transaction[:created_at]
-    @updated = transaction[:updated_at]
+    @invoice_id = csv_row_data[:invoice_id]
+    @credit_card_number = csv_row_data[:credit_card_number]
+    @credit_card_expiration_date = csv_row_data[:credit_card_expiration_date]
+    @result = csv_row_data[:result]
+    @created_at = csv_row_data[:created_at]
+    @updated_at = csv_row_data[:updated_at]
   
+  end
+
+  def invoice
   end
 
 #end of Merchant class

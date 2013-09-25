@@ -6,20 +6,21 @@ class Item
   attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
 
 
-  def initialize(id)
+  def initialize(csv_row_data)
 
-    filename = "../data/items.csv"
-    file_data =  CSV.read(filename, headers: true, header_converters: :symbol)
-
-    item = file_data.find { |row| row[:id] == id  }
-
-    @name = item[:name]
-    @description = item[:description]
-    @unit_price = item[:unit_price]
-    @merchant_id = item[:merchant_id]
-    @created_at = item[:created_at]
-    @updated_at = item[:updated_at]
+    @name = csv_row_data[:name]
+    @description = csv_row_data[:description]
+    @unit_price = csv_row_data[:unit_price]
+    @merchant_id = csv_row_data[:merchant_id]
+    @created_at = csv_row_data[:created_at]
+    @updated_at = csv_row_data[:updated_at]
       
+  end
+
+  def invoice_items
+  end
+
+  def merchant
   end
 
 end

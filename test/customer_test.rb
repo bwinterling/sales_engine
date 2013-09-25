@@ -7,10 +7,19 @@ require_relative '../lib/customer'
 class CustomerTest < Minitest::Test
 
   def test_customer_loaded
-    customer = Customer.new('1')
-    assert_equal 'Ondricka', customer.last_name
-    customer3 = Customer.new('3')
-    assert_equal '2012-03-27 14:54:10 UTC', customer3.created
+    row = {
+      id: "1",
+      first_name: "Joey",
+      last_name: "Ondricka",
+      created_at: Time.new,
+      updated_at: Time.new
+      }
+
+    customer = Customer.new(row)
+    assert_equal "Ondricka", customer.last_name
+    assert_equal "Joey", customer.first_name
+    assert_equal "1", customer.id
+    refute_nil customer.created_at
   end
 
 end
