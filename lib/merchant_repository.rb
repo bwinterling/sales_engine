@@ -12,7 +12,7 @@ class MerchantRepository
   end
 
   def load_merchant_csv
-    CSV.read('../data/merchants.csv', headers: true, header_converters: :symbol)
+    CSV.read('data/merchants.csv', headers: true, header_converters: :symbol)
   end
 
   def all
