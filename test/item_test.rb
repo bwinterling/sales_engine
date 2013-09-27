@@ -1,24 +1,13 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/item'
+require_relative '../lib/sales_engine'
 
 
 class ItemTest < Minitest::Test
 
-  def sample_data
-    {
-      id: "1",
-      name: "4",
-      unit_price: "26",
-      merchant_id: "19.99",
-      created_at: Time.new,
-      updated_at: Time.new
-    }
-  end
-
   def item
-    @item ||= Item.new(sample_data)
+    @item ||= SalesEngine.new.item_repository.find_by_item_id('1')
   end
 
   def test_item_has_an_item_id
@@ -26,15 +15,15 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_name
-    assert_equal '4', item.name
+    assert_equal 'Item Qui Esse', item.name
   end
 
   def test_item_has_a_unit_price
-    assert_equal '26', item.unit_price
+    assert_equal '75107', item.unit_price
   end
 
   def test_item_has_a_merchant_id
-    assert_equal '19.99', item.merchant_id
+    assert_equal '1', item.merchant_id
   end
 
   def test_item_has_a_created_at

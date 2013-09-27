@@ -2,44 +2,28 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-require_relative '../lib/transaction'
+require_relative '../lib/sales_engine'
 
 class ItemTest < Minitest::Test
 
-  def sample_date
-    {
-      id: "1",
-      invoice_id: "4",
-      credit_card_number: "26",
-      credit_card_expiration_date: "19.99",
-      result: "aprooved",
-      created_at: Time.new,
-      updated_at: Time.new  
-      }
-  end
-
   def transaction
-    @transaction ||= Transaction.new(sample_date)
+    @transaction ||= SalesEngine.new.transaction_repository.find_by_transaction_id('8')
   end
 
   def test_transaction_has_an_id
-    assert_equal '1', transaction.id
+    assert_equal '8', transaction.id
   end
 
   def test_transaction_has_a_invoice_id
-    assert_equal '4', transaction.invoice_id
+    assert_equal '9', transaction.invoice_id
   end
 
   def test_transaction_has_a_credit_card_number
-    assert_equal '26', transaction.credit_card_number
-  end
-
-  def test_transaction_has_an_cc_expiration
-    assert_equal '19.99', transaction.credit_card_expiration_date
+    assert_equal '4540842003561938', transaction.credit_card_number
   end
 
   def test_transaction_has_a_result
-    assert_equal 'aprooved', transaction.result
+    assert_equal 'success', transaction.result
   end
 
   def test_transaction_has_a_created_at

@@ -16,7 +16,7 @@ class TransactionRepository
   end
 
   def all
-    @transactions = @transactions_csv.collect { |row| Transaction.new(row) }
+    @transactions = @transactions_csv.collect { |row| Transaction.new(self, row) }
   end
 
   def random
@@ -49,8 +49,10 @@ class TransactionRepository
 
   def find_all_by_result(match)
     @transactions.find_all { |transaction| transaction.result.downcase == match.downcase }
-
   end
 
-# end of class
+  def find_invoice_by(invoice_id)
+    @sales_engine.invoice_repository.find_by_invoice_id(invoice_id)
+  end
+
 end

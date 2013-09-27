@@ -45,4 +45,8 @@ class CustomerRepository
     @customers.find_all { |customer| customer.last_name == match }    
   end
 
+  def find_invoices_by(customer_id)
+    @sales_engine.invoice_repository.find_all_by_customer_id(customer_id)
+  end
+
 end

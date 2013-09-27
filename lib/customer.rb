@@ -16,7 +16,7 @@ class Customer
   end
 
   def invoices
-    
+    @customer_repository.find_invoices_by(@id)
   end
 
 #end of Customer class

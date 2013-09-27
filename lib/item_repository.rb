@@ -18,7 +18,7 @@ class ItemRepository
 
   def all
     @items = @items_csv.collect do |row|
-      Item.new(row)
+      Item.new(self, row)
     end
   end
 
@@ -42,6 +42,12 @@ class ItemRepository
     @items.find { |item| item.merchant_id == match }
   end
 
+  def find_invoice_items_by(item_id)
+    @sales_engine.invoice_item_repository.find_all_by_item_id(item_id)
+  end
 
-#end of ItemRepository class
+  def find_merchant_by(merchant_id)
+    @sales_engine.merchant_repository.find_by_merchant_id(merchant_id)
+  end
+
 end

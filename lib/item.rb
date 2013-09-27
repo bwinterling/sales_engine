@@ -6,8 +6,9 @@ class Item
   attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
 
 
-  def initialize(csv_row_data)
+  def initialize(item_repository, csv_row_data)
 
+    @item_repository = item_repository
     @id = csv_row_data[:id]
     @name = csv_row_data[:name]
     @description = csv_row_data[:description]
@@ -19,9 +20,11 @@ class Item
   end
 
   def invoice_items
+    @item_repository.find_invoice_items_by(@id)
   end
 
   def merchant
+    @item_repository.find_merchant_by(@merchant_id)
   end
 
 end
