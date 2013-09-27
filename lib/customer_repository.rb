@@ -5,7 +5,8 @@ class CustomerRepository
 
   attr_reader :customer_csv, :customers
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @customer_csv ||= load_customer_csv
     @customers ||= all
   end
@@ -16,15 +17,12 @@ class CustomerRepository
 
   def all
     @customers = @customer_csv.collect do |row|
-      Customer.new(row)
+      Customer.new(self, row)
     end
   end
 
   def random
-    random_id = ""
-    total_rows = @customers.count
-    random_id = rand(total_rows).to_s
-    random_customer = @customers.find { |customer| customer.id == random_id }
+    @customers.sample
   end  
 
   def find_by_customer_id(match)

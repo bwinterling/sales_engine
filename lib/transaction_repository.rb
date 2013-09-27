@@ -5,7 +5,8 @@ class TransactionRepository
 
   attr_reader :transactions_csv, :transactions
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     load_transactions_csv
     @transactions ||= all
   end
@@ -19,10 +20,7 @@ class TransactionRepository
   end
 
   def random
-    random_id = ""
-    total_rows = @transactions.count
-    random_id = rand(total_rows).to_s
-    random_transaction = @transactions.find { |transaction| transaction.id == random_id }
+    @transactions.sample
   end
 
   def find_by_transaction_id(match)

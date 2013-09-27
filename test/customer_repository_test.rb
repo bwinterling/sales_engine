@@ -7,7 +7,7 @@ require_relative '../lib/customer_repository'
 class CustomerRepositoryTest < Minitest::Test
 
   def setup
-    @repository = CustomerRepository.new
+    @repository = SalesEngine.new.customer_repository
   end
 
   def test_merchant_repository_csv_loaded

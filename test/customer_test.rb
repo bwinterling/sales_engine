@@ -6,18 +6,8 @@ require_relative '../lib/customer'
 
 class CustomerTest < Minitest::Test
 
-  def sample_data
-    {
-      id: "1",
-      first_name: "Joey",
-      last_name: "Ondricka",
-      created_at: Time.new,
-      updated_at: Time.new
-    }
-  end
-
   def customer
-    @customer ||= Customer.new(sample_data)
+    @customer ||= SalesEngine.new.customer_repository.find_by_customer_id('1')
   end
 
   def test_customer_has_a_last_name

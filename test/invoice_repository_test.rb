@@ -2,12 +2,12 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-require_relative '../lib/invoice_repository'
+require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @repository = InvoiceRepository.new
+    @repository = SalesEngine.new.invoice_repository
   end
 
   def test_invoice_repository_csv_loaded
@@ -16,8 +16,8 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_invoice_repository_all
-    refute_nil @repository.invoice
-    assert_equal 4843, @repository.invoice.count
+    refute_nil @repository.invoices
+    assert_equal 4843, @repository.invoices.count
   end
 
   def test_invoice_repository_random

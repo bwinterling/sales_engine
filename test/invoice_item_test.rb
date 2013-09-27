@@ -6,20 +6,8 @@ require_relative '../lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
 
-  def sample_date
-    {
-      id: "2",
-      item_id: "6",
-      invoice_id: "4",
-      quantity: "26",
-      unit_price: "19.99",
-      created_at: Time.new,
-      updated_at: Time.new
-      }
-  end
-
   def invoice_item
-    @invoice_item ||= InvoiceItem.new(sample_date)
+    @invoice_item ||= SalesEngine.new.invoice_item_repository.find_by_invoice_item_id('2')
   end
 
   def test_invoice_item_has_id
@@ -27,19 +15,19 @@ class InvoiceItemTest < Minitest::Test
   end  
 
   def test_invoice_item_has_item_id
-    assert_equal '6', invoice_item.item_id
+    assert_equal '528', invoice_item.item_id
   end  
 
   def test_invoice_item_has_invoice_id
-    assert_equal '4', invoice_item.invoice_id
+    assert_equal '1', invoice_item.invoice_id
   end  
 
   def test_invoice_item_has_quantity
-    assert_equal '26', invoice_item.quantity
+    assert_equal '9', invoice_item.quantity
   end  
 
   def test_invoice_item_has_unit_price
-    assert_equal '19.99', invoice_item.unit_price
+    assert_equal '23324', invoice_item.unit_price
   end  
 
   def test_invoice_item_has_created_at

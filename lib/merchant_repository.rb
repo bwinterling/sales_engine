@@ -5,7 +5,8 @@ class MerchantRepository
 
   attr_reader :merchant_csv, :merchants
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @merchant_csv ||= load_merchant_csv
     @merchants ||= all
   end
@@ -16,15 +17,12 @@ class MerchantRepository
 
   def all
     @merchants = @merchant_csv.collect do |row|
-      Merchant.new(row)
+      Merchant.new(self, row)
     end
   end
 
   def random
-    random_id = ""
-    total_rows = @merchants.count
-    random_id = rand(total_rows).to_s
-    random_merchant = @merchants.find { |merchant| merchant.id == random_id }
+    @merchants.sample
   end
 
   def find_by_name(match)
@@ -39,6 +37,11 @@ class MerchantRepository
     @merchants.find { |merchant| merchant.id == match }
   end
 
+  def find_all_items_by_merchant(merchant_id)
+    @sales_engine.item_repository.items.find_all { |item| item.merchant_id == merchant_id }
+  end
 
-#end of MerchantRepository class
+  def find_all_invoices_by_merchant(merchant_id)
+    @sales_engine.invoice_repository.invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
+  end
 end

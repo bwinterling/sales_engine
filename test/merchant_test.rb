@@ -2,29 +2,21 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-require_relative '../lib/merchant'
+
+require_relative '../lib/sales_engine'
 
 class MerchantTest < Minitest::Test
 
-  def sample_date
-    {
-      id: '1',
-      name: "George",
-      created_at: Time.new,
-      updated_at: Time.new
-    }
-  end
-
   def merchant
-    @merchant ||= Merchant.new(sample_date)
+    @merchant ||= SalesEngine.new.merchant_repository.find_by_merchant_id("5")
   end
 
   def test_merchant_has_an_id
-    assert_equal '1', merchant.id
+    assert_equal '5', merchant.id
   end
 
   def test_merchant_has_a_name
-    assert_equal 'George', merchant.name
+    assert_equal 'Williamson Group', merchant.name
   end
 
   def test_merchant_has_a_created_at

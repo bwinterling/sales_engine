@@ -2,12 +2,12 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @repository = MerchantRepository.new
+    @repository = SalesEngine.new.merchant_repository
   end
 
   def test_merchant_repository_csv_loaded

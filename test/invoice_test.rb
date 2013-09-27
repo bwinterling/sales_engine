@@ -6,19 +6,8 @@ require_relative '../lib/invoice'
 
 class InvoiceTest < Minitest::Test
 
-  def sample_data
-    {
-      id: "1",
-      customer_id: "1",
-      merchant_id: "26",
-      status: "shipped",
-      created_at: Time.new,
-      updated_at: Time.new
-    }
-  end
-
   def invoice
-    @invoice ||= Invoice.new(sample_data)
+    @invoice ||= SalesEngine.new.invoice_repository.find_by_invoice_id('1')
   end
 
   def test_invoice_has_an_id

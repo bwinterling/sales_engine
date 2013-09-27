@@ -4,8 +4,9 @@ class Customer
 
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
-  def initialize(csv_row_data)
+  def initialize(customer_repository, csv_row_data)
 
+    @customer_repository = customer_repository
     @id = csv_row_data[:id]
     @first_name = csv_row_data[:first_name]
     @last_name = csv_row_data[:last_name]

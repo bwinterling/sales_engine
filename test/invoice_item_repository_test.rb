@@ -7,7 +7,7 @@ require_relative '../lib/invoice_item_repository'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
-    @repository = InvoiceItemRepository.new
+    @repository = SalesEngine.new.invoice_item_repository
   end
 
   def test_invoice_item_repository_csv_loaded

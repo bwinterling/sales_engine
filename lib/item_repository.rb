@@ -6,7 +6,8 @@ class ItemRepository
 
   attr_reader :items_csv, :items
 
-  def initialize
+  def initialize(sales_engine)
+    @sales_engine = sales_engine
     @items_csv ||= load_item_csv
     @items ||= all
   end
@@ -22,10 +23,7 @@ class ItemRepository
   end
 
   def random
-    random_id = ""
-    total_rows = @items.count
-    random_id = rand(total_rows).to_s
-    random_item = @items.find { |item| item.id == random_id }
+    @items.sample
   end
 
   def find_by_name(match)

@@ -2,12 +2,12 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @repository = ItemRepository.new
+    @repository = SalesEngine.new.item_repository
   end
 
   def test_item_repository_csv_loaded

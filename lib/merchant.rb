@@ -4,8 +4,9 @@ class Merchant
 
   attr_reader :id, :name, :created_at, :updated_at
 
-  def initialize(csv_row_data)
+  def initialize(merchant_repository, csv_row_data)
     
+    @merchant_repository = merchant_repository
     @id = csv_row_data[:id]
     @name = csv_row_data[:name]
     @created_at = csv_row_data[:created_at]
@@ -14,12 +15,11 @@ class Merchant
   end
 
   def items
-    #find all items with merchant_id 
+    @merchant_repository.find_all_items_by_merchant(@id)
   end
 
   def invoices
-    invoices = InvoiceRepository.new.find_all_by_merchant_id(@id)
-    invoices
+    @merchant_repository.find_all_invoices_by_merchant(@id)
   end
-#end of Merchant class
+
 end
