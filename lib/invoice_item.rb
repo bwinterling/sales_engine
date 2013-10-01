@@ -18,12 +18,15 @@ class InvoiceItem
   end
 
   def invoice
-    @invoice_item_repository.find_invoice_by(@invoice_id)
+    @invoice_item_repository.find_invoice_by(invoice_id)
   end
 
   def item
-    @invoice_item_repository.find_item_by(@item_id)
+    @invoice_item_repository.find_item_by(item_id)
   end
 
-#end of Merchant class
+  def total_sale
+    quantity.to_i * unit_price.to_i
+  end
+
 end

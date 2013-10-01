@@ -10,6 +10,12 @@ require_relative 'customer_repository'
 
 class SalesEngine
 
+  attr_reader :dir
+
+  def initialize(data_directory = 'data/')
+    @dir = data_directory
+  end
+
   def startup
   end
 
@@ -38,7 +44,3 @@ class SalesEngine
   end
 
 end
-
-
-engine = SalesEngine.new
-engine.startup

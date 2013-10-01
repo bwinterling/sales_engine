@@ -7,17 +7,12 @@ require_relative '../lib/sales_engine'
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new.item_repository
-  end
-
-  def test_item_repository_csv_loaded
-    refute_nil @repository.items_csv
-    assert_equal 2483, @repository.items_csv.count
+    @repository = SalesEngine.new('test/fixture/').item_repository
   end
 
   def test_item_repository_all
-    refute_nil @repository.items_csv
-    assert_equal 2483, @repository.items_csv.count
+    refute_nil @repository.all
+    assert_equal 2483, @repository.all.count
   end
 
   def test_item_repository_random

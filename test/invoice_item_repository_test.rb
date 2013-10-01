@@ -7,17 +7,12 @@ require_relative '../lib/invoice_item_repository'
 class InvoiceItemRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new.invoice_item_repository
-  end
-
-  def test_invoice_item_repository_csv_loaded
-    refute_nil @repository.invoice_items_csv
-    assert_equal 21687, @repository.invoice_items_csv.count
+    @repository = SalesEngine.new('test/fixture/').invoice_item_repository
   end
 
   def test_invoice_item_repository_all
     refute_nil @repository.invoice_items
-    assert_equal 21687, @repository.invoice_items.count
+    assert_equal 206, @repository.invoice_items.count
   end
 
   def test_invoice_item_repository_random
@@ -32,13 +27,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_item_id
-    found = @repository.find_by_item_id('5')
-    assert_equal '719', found.id 
+    found = @repository.find_by_item_id('848')
+    assert_equal '38', found.id 
   end
 
   def test_find_all_by_item_id
-    found = @repository.find_all_by_item_id('12')
-    assert_equal 13, found.count
+    found = @repository.find_all_by_item_id('523')
+    assert_equal 1, found.count
   end
 
   def test_find_by_invoice_id
@@ -58,7 +53,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_quantity
     found = @repository.find_all_by_quantity('3')
-    assert_equal 2166, found.count
+    assert_equal 19, found.count
   end
 
 
@@ -69,7 +64,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_unit_price
     found = @repository.find_all_by_unit_price('72018')
-    assert_equal 33, found.count
+    assert_equal 3, found.count
   end
 
 end

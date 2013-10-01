@@ -7,17 +7,12 @@ require_relative '../lib/customer_repository'
 class CustomerRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new.customer_repository
-  end
-
-  def test_merchant_repository_csv_loaded
-    refute_nil @repository.customer_csv
-    assert_equal 1000, @repository.customer_csv.count
+    @repository = SalesEngine.new('test/fixture/').customer_repository
   end
 
   def test_customer_repository_all
     refute_nil @repository.customers
-    assert_equal 1000, @repository.customers.count
+    assert_equal 20, @repository.customers.count
   end
 
   def test_customer_repository_random
@@ -32,15 +27,15 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_customer_repository_find_by_first_name
-    found = @repository.find_by_first_name('Lisa')
-    assert_equal 'Lisa', found.first_name
+    found = @repository.find_by_first_name('Leanne')
+    assert_equal 'Leanne', found.first_name
     found2 = @repository.find_by_first_name('Snuffalufagus')
     assert_nil found2
   end
 
   def test_customer_repository_find_all_by_first_name
-    found = @repository.find_all_by_first_name('Lisa')
-    assert_equal 2, found.count
+    found = @repository.find_all_by_first_name('Leanne')
+    assert_equal 1, found.count
   end
 
 
@@ -52,8 +47,8 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_customer_repository_find_all_by_last_name
-    found = @repository.find_all_by_last_name('MacGyver')
-    assert_equal 3, found.count
+    found = @repository.find_all_by_last_name('Fadel')
+    assert_equal 2, found.count
   end
 
 end

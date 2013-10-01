@@ -22,4 +22,21 @@ class Merchant
     @merchant_repository.find_all_invoices_by_merchant(@id)
   end
 
+  def successful_invoices
+    invoices.find_all { |invoice| invoice.successful? }
+  end
+
+  def successful_invoice_items
+    results = successful_invoices.collect { |invoice| invoice.invoice_items }
+    results.flatten
+  end
+
+  def revenue
+    total = 0
+    successful_invoice_items.each do |invoice_item|
+      total += invoice_item.total_sale
+    end
+    total
+  end
+
 end

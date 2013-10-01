@@ -35,7 +35,10 @@ class Invoice
   def merchant
     @invoice_repository.find_merchants_by(@merchant_id)
   end
-      
+
+  def successful?
+    transactions.any? { |transaction| transaction.result == 'success' }
+  end 
     
 end
 

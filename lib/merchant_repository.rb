@@ -3,38 +3,40 @@ require_relative 'merchant'
 
 class MerchantRepository
 
-  attr_reader :merchant_csv, :merchants
-
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    @merchant_csv ||= load_merchant_csv
-    @merchants ||= all
   end
 
-  def load_merchant_csv
-    CSV.read('data/merchants.csv', headers: true, header_converters: :symbol)
+  def data
+    CSV.read(data_file, headers: true, header_converters: :symbol)
+  end
+
+  def data_file
+    "#{@sales_engine.dir}merchants.csv"
+  end
+
+  def merchants
+    all
   end
 
   def all
-    @merchants = @merchant_csv.collect do |row|
-      Merchant.new(self, row)
-    end
+    @all ||= data.collect { |row| Merchant.new(self, row) }
   end
 
   def random
-    @merchants.sample
+    all.sample
   end
 
   def find_by_name(match)
-    @merchants.find { |merchant| merchant.name.downcase == match.downcase }
+    all.find { |merchant| merchant.name.downcase == match.downcase }
   end
 
   def find_all_by_name(match)
-    @merchants.find_all { |merchant| merchant.name.downcase == match.downcase }
+    all.find_all { |merchant| merchant.name.downcase == match.downcase }
   end
 
   def find_by_merchant_id(match)
-    @merchants.find { |merchant| merchant.id == match }
+    all.find { |merchant| merchant.id == match }
   end
 
   def find_all_items_by_merchant(merchant_id)

@@ -34,4 +34,8 @@ class InvoiceItemTest < Minitest::Test
     refute_nil invoice_item.created_at
   end
 
+  def test_total_sale
+    assert_equal 209916, invoice_item.total_sale
+  end
+
 end

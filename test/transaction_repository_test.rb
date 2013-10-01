@@ -7,12 +7,7 @@ require_relative '../lib/transaction_repository'
 class TransactionRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new.transaction_repository
-  end
-
-  def test_transaction_repository_csv_loaded
-    refute_nil @repository.transactions_csv
-    assert_equal 5595, @repository.transactions_csv.count
+    @repository = SalesEngine.new('test/fixture/').transaction_repository
   end
 
   def test_transaction_repository_all

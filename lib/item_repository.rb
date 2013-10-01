@@ -4,42 +4,44 @@ require 'pry'
 
 class ItemRepository
 
-  attr_reader :items_csv, :items
-
   def initialize(sales_engine)
     @sales_engine = sales_engine
-    @items_csv ||= load_item_csv
-    @items ||= all
   end
 
-  def load_item_csv
-    CSV.read('data/items.csv', headers: true, header_converters: :symbol)
+  def data
+    CSV.read(data_file, headers: true, header_converters: :symbol)
+  end
+
+  def data_file
+    "#{@sales_engine.dir}items.csv"
+  end
+
+  def items
+    all
   end
 
   def all
-    @items = @items_csv.collect do |row|
-      Item.new(self, row)
-    end
+    @all ||= data.collect { |row| Item.new(self, row) }
   end
 
   def random
-    @items.sample
+    all.sample
   end
 
   def find_by_name(match)
-    @items.find { |item| item.name.downcase == match.downcase }
+    all.find { |item| item.name.downcase == match.downcase }
   end
 
   def find_all_by_name(match)
-    @items.find_all { |item| item.name.downcase == match.downcase }
+    all.find_all { |item| item.name.downcase == match.downcase }
   end
 
   def find_by_item_id(match)
-    @items.find { |item| item.id == match }
+    all.find { |item| item.id == match }
   end
 
   def find_by_merchant_id(match)
-    @items.find { |item| item.merchant_id == match }
+    all.find { |item| item.merchant_id == match }
   end
 
   def find_invoice_items_by(item_id)

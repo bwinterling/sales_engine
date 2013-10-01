@@ -7,12 +7,7 @@ require_relative '../lib/sales_engine'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new.merchant_repository
-  end
-
-  def test_merchant_repository_csv_loaded
-    refute_nil @repository.merchant_csv
-    assert_equal 100, @repository.merchant_csv.count
+    @repository = SalesEngine.new('test/fixture/').merchant_repository
   end
 
   def test_merchant_repository_all

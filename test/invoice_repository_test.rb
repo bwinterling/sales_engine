@@ -7,17 +7,12 @@ require_relative '../lib/sales_engine'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new.invoice_repository
-  end
-
-  def test_invoice_repository_csv_loaded
-    refute_nil @repository.invoice_csv
-    assert_equal 4843, @repository.invoice_csv.count
+    @repository = SalesEngine.new('test/fixture/').invoice_repository
   end
 
   def test_invoice_repository_all
     refute_nil @repository.invoices
-    assert_equal 4843, @repository.invoices.count
+    assert_equal 47, @repository.invoices.count
   end
 
   def test_invoice_repository_random
@@ -38,7 +33,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_invioce_repository_find_all_by_staus
     found = @repository.find_all_by_status('shipped')
-    assert_equal 4843, found.count
+    assert_equal 47, found.count
   end
 
 end
