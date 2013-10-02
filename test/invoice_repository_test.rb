@@ -7,7 +7,8 @@ require_relative '../lib/sales_engine'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    @repository = SalesEngine.new('test/fixture/').invoice_repository
+    @sales_engine = SalesEngine.new('test/fixture/')
+    @repository = @sales_engine.invoice_repository
   end
 
   def test_invoice_repository_all
@@ -39,6 +40,26 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_invoice_repository_find_all_by_date
     date = Date.parse('2012-03-27')
     assert_equal 3, @repository.find_all_by_date(date).count
+  end
+
+  def test_create
+    input_hash = {
+      customer: @sales_engine.customer_repository.find_by_id('1'),
+      merchant: @sales_engine.merchant_repository.find_by_id('1'),
+      status: "shipped",
+      items: [
+        @sales_engine.item_repository.find_by_id('2'),
+        @sales_engine.item_repository.find_by_id('2'),
+        @sales_engine.item_repository.find_by_id('3')
+      ]
+    }
+    start_all_count = @repository.all.count
+    start_ii_count = @sales_engine.invoice_item_repository.all.count
+    @repository.create(input_hash)
+    finish_all_count = @repository.all.count
+    finish_ii_count = @sales_engine.invoice_item_repository.all.count
+    assert finish_all_count > start_all_count
+    assert finish_ii_count == (start_ii_count + 2)
   end
 
 end
