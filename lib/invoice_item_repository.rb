@@ -68,7 +68,7 @@ class InvoiceItemRepository
   end
 
   def find_item_by(item_id)
-    @sales_engine.item_repository.find_by_item_id(item_id)
+    @sales_engine.item_repository.find_by_id(item_id)
   end
 
 end

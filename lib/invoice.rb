@@ -44,7 +44,13 @@ class Invoice
   def pending?
     transactions.none? { |transaction| transaction.result == 'success' }
   end
-    
+  
+  def items_sold
+    total = 0
+    invoice_items.each { |ii| total += ii.quantity.to_i }
+    total
+  end
+
   def revenue
     total = 0
     invoice_items.each { |ii| total += ii.total_sale }

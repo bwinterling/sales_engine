@@ -22,7 +22,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repository_find_by_name
-    found = @repository.find_by_item_id('4')
+    found = @repository.find_by_id('4')
     assert_equal 'Item Nemo Facere', found.name
   end
 
@@ -35,6 +35,18 @@ class ItemRepositoryTest < Minitest::Test
     found = @repository.find_all_by_name('Item Qui Esse')
     assert_equal 'Item Qui Esse', found[0].name
     assert_equal 1, found.count
+  end
+
+  def test_item_repository_most_revenue
+    list = @repository.most_revenue(5)
+    assert_equal 5, list.count
+    assert list[0].revenue >= list[1].revenue
+  end
+
+  def test_item_repository_most_items
+    list = @repository.most_items(5)
+    assert_equal 5, list.count
+    assert list[0].total_sold >= list[1].total_sold
   end
 
 end

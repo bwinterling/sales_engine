@@ -41,12 +41,12 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_merchant_repository_most_revenue
     assert_equal 5, @repository.most_revenue(5).count
-    assert @repository.most_revenue(5)[0].revenue > @repository.most_items(5)[1].revenue
+    assert @repository.most_revenue(5)[0].revenue >= @repository.most_revenue(5)[1].revenue
   end
 
   def test_merchant_repository_most_items
     assert_equal 5, @repository.most_items(5).count
-    assert @repository.most_items(5)[0].items.count > @repository.most_items(5)[1].items.count
+    assert @repository.most_items(5)[0].items.count >= @repository.most_items(5)[1].items.count
   end
 
   def test_merchant_repository_all_revenue_by_date

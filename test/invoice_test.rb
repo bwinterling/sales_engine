@@ -31,6 +31,10 @@ class InvoiceTest < Minitest::Test
     refute_nil invoice.created_at
   end
 
+  def test_invoice_items_sold
+    assert_equal 47, invoice.items_sold
+  end
+
   def test_invoice_revenue
     assert_equal "21067.77", invoice.revenue.to_s("F")
   end

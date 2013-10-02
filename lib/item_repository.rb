@@ -36,7 +36,7 @@ class ItemRepository
     all.find_all { |item| item.name.downcase == match.downcase }
   end
 
-  def find_by_item_id(match)
+  def find_by_id(match)
     all.find { |item| item.id == match }
   end
 
@@ -50,6 +50,16 @@ class ItemRepository
 
   def find_merchant_by(merchant_id)
     @sales_engine.merchant_repository.find_by_id(merchant_id)
+  end
+
+  def most_revenue(top_x)
+    items_by_rev = items.sort_by { |i| -i.revenue }
+    items_by_rev[0...top_x]
+  end
+
+  def most_items(top_x)
+    items_by_total_sold = items.sort_by { |i| -i.total_sold }
+    items_by_total_sold[0...top_x]
   end
 
 end

@@ -72,7 +72,7 @@ class InvoiceRepository
   def find_all_items_by_invoice(id)
     invoice_items = find_all_invoice_items_by_invoice(id)
     items = invoice_items.map do |invoice_item|
-      @sales_engine.item_repository.find_by_item_id(invoice_item.item_id)
+      @sales_engine.item_repository.find_by_id(invoice_item.item_id)
     end
   end
 
