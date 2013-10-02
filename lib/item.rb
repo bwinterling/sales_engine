@@ -10,10 +10,10 @@ class Item
     @id = csv_row_data[:id]
     @name = csv_row_data[:name]
     @description = csv_row_data[:description]
-    @unit_price = csv_row_data[:unit_price]
+    @unit_price = BigDecimal(csv_row_data[:unit_price])
     @merchant_id = csv_row_data[:merchant_id]
-    @created_at = csv_row_data[:created_at]
-    @updated_at = csv_row_data[:updated_at] 
+    @created_at = Date.parse(csv_row_data[:created_at])
+    @updated_at = Date.parse(csv_row_data[:updated_at])
   end
 
   def merchant
@@ -38,10 +38,21 @@ class Item
     total
   end
 
-  def revenue
+  def revenue(date = 'all')
     total = BigDecimal('0')
-    successful_invoices.each { |si| total += si.revenue }
+    if date == 'all'
+      successful_invoices.each { |si| total += si.revenue }
+    else
+      successful_invoices.each { 
+        |si| total += si.revenue if date == si.created_at
+      }
+    end
     total
+  end
+
+  def best_day
+    dates = successful_invoices.collect { |si| si.created_at }.uniq
+    dates.max_by { |date| revenue(date) }
   end
 
 end

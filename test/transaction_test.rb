@@ -7,7 +7,7 @@ require_relative '../lib/sales_engine'
 class ItemTest < Minitest::Test
 
   def transaction
-    @transaction ||= SalesEngine.new('test/fixture/').transaction_repository.find_by_transaction_id('8')
+    @transaction ||= SalesEngine.new('test/fixture/').transaction_repository.find_by_id('8')
   end
 
   def test_transaction_has_an_id

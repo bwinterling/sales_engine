@@ -8,7 +8,7 @@ require_relative '../lib/sales_engine'
 class InvoiceTest < Minitest::Test
 
   def invoice
-    @invoice ||= SalesEngine.new('test/fixture/').invoice_repository.find_by_invoice_id('1')
+    @invoice ||= SalesEngine.new('test/fixture/').invoice_repository.find_by_id('1')
   end
 
   def test_invoice_has_an_id
@@ -45,7 +45,7 @@ class InvoiceTest < Minitest::Test
 
   def test_pending?
     refute invoice.pending?
-    invoice2 = SalesEngine.new('test/fixture/').invoice_repository.find_by_invoice_id('13')
+    invoice2 = SalesEngine.new('test/fixture/').invoice_repository.find_by_id('13')
     assert invoice2.pending?
   end
 

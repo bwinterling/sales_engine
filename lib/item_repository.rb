@@ -44,6 +44,14 @@ class ItemRepository
     all.find { |item| item.merchant_id == match }
   end
 
+  def find_by_unit_price(match)
+    all.find { |item| item.unit_price == match  }
+  end
+
+  def find_all_by_unit_price(match)
+    all.find_all { |item| item.unit_price == match  }
+  end
+
   def find_invoice_items_by(item_id)
     @sales_engine.invoice_item_repository.find_all_by_item_id(item_id)
   end

@@ -40,7 +40,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def invoice_id1
-    @invoice ||= @engine.invoice_repository.find_by_invoice_id('1')
+    @invoice ||= @engine.invoice_repository.find_by_id('1')
   end
 
   def test_invoice_can_list_transactions
@@ -56,7 +56,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_can_list_customer
-    invoice = @engine.invoice_repository.find_by_invoice_id('10')    
+    invoice = @engine.invoice_repository.find_by_id('10')    
     assert_equal '3', invoice.customer.id
   end
 
@@ -69,12 +69,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_item_can_list_invoice
-    invoice_item = @engine.invoice_item_repository.find_by_invoice_item_id('2')
+    invoice_item = @engine.invoice_item_repository.find_by_id('2')
     assert_equal '1', invoice_item.invoice.id
   end
 
   def test_invoice_item_can_list_item
-    invoice_item = @engine.invoice_item_repository.find_by_invoice_item_id('2')
+    invoice_item = @engine.invoice_item_repository.find_by_id('2')
     assert_equal '528', invoice_item.item.id
   end
 

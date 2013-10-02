@@ -10,8 +10,8 @@ class Customer
     @id = csv_row_data[:id]
     @first_name = csv_row_data[:first_name]
     @last_name = csv_row_data[:last_name]
-    @created_at = csv_row_data[:created_at]
-    @updated_at = csv_row_data[:updated_at]
+    @created_at = Date.parse(csv_row_data[:created_at])
+    @updated_at = Date.parse(csv_row_data[:updated_at])
   
   end
 
@@ -34,6 +34,14 @@ class Customer
   def transactions
     transactions = invoices.collect { |i| i.transactions }
     transactions.flatten
+  end
+
+  def merchants
+    invoices.collect { |i| i.merchant }.uniq
+  end
+
+  def favorite_merchant
+    merchants.max_by { |m| m.successful_invoices.count}
   end
 
 end

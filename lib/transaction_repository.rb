@@ -27,7 +27,7 @@ class TransactionRepository
     all.sample
   end
 
-  def find_by_transaction_id(match)
+  def find_by_id(match)
     all.find { |transaction| transaction.id == match }
   end
 
@@ -56,7 +56,7 @@ class TransactionRepository
   end
 
   def find_invoice_by(invoice_id)
-    @sales_engine.invoice_repository.find_by_invoice_id(invoice_id)
+    @sales_engine.invoice_repository.find_by_id(invoice_id)
   end
 
 end

@@ -27,7 +27,7 @@ class InvoiceItemRepository
     all.sample
   end
 
-  def find_by_invoice_item_id(match)
+  def find_by_id(match)
     all.find { |invoice_item| invoice_item.id == match }
   end
 
@@ -64,7 +64,7 @@ class InvoiceItemRepository
   end    
 
   def find_invoice_by(invoice_id)
-    @sales_engine.invoice_repository.find_by_invoice_id(invoice_id)
+    @sales_engine.invoice_repository.find_by_id(invoice_id)
   end
 
   def find_item_by(item_id)

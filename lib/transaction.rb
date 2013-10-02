@@ -12,8 +12,8 @@ class Transaction
     @credit_card_number = csv_row_data[:credit_card_number]
     @credit_card_expiration_date = csv_row_data[:credit_card_expiration_date]
     @result = csv_row_data[:result]
-    @created_at = csv_row_data[:created_at]
-    @updated_at = csv_row_data[:updated_at]
+    @created_at = Date.parse(csv_row_data[:created_at])
+    @updated_at = Date.parse(csv_row_data[:updated_at])
   
   end
 

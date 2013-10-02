@@ -22,7 +22,7 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_transaction_id
-    found = @repository.find_by_transaction_id('5')
+    found = @repository.find_by_id('5')
     assert_equal '6', found.invoice_id 
   end
 

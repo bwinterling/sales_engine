@@ -27,7 +27,7 @@ class CustomerRepository
     all.sample
   end  
 
-  def find_by_customer_id(match)
+  def find_by_id(match)
     all.find { |customer| customer.id == match }
   end
 

@@ -29,7 +29,7 @@ class InvoiceRepository
     all.sample
   end
 
-  def find_by_invoice_id(match)
+  def find_by_id(match)
     all.find { |invoice| invoice.id == match }
   end
 
@@ -58,7 +58,7 @@ class InvoiceRepository
   end
 
   def find_all_by_date(date)
-    all.find_all { |invoice| Date.parse(invoice.created_at) == date }
+    all.find_all { |invoice| invoice.created_at == date }
   end
 
   def find_all_transactions_by_invoice(id)
@@ -77,7 +77,7 @@ class InvoiceRepository
   end
 
   def find_customer_by_(customer_id)
-    @sales_engine.customer_repository.find_by_customer_id(customer_id)
+    @sales_engine.customer_repository.find_by_id(customer_id)
   end
 
   def find_merchants_by(merchant_id)

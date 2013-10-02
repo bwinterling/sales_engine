@@ -22,7 +22,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_customer_repository_find_by_customer_id
-    found = @repository.find_by_customer_id('5')
+    found = @repository.find_by_id('5')
     assert_equal 'Sylvester', found.first_name    
   end
 

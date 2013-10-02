@@ -12,8 +12,8 @@ class Invoice
     @customer_id = csv_row_data[:customer_id]
     @merchant_id = csv_row_data[:merchant_id]
     @status = csv_row_data[:status]
-    @created_at = csv_row_data[:created_at]
-    @updated_at = csv_row_data[:updated_at]
+    @created_at = Date.parse(csv_row_data[:created_at])
+    @updated_at = Date.parse(csv_row_data[:updated_at])
     
   end
 

@@ -1,13 +1,14 @@
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 
 require_relative '../lib/sales_engine'
 
 class InvoiceItemTest < Minitest::Test
 
   def invoice_item
-    @invoice_item ||= SalesEngine.new('test/fixture/').invoice_item_repository.find_by_invoice_item_id('2')
+    @invoice_item ||= SalesEngine.new('test/fixture/').invoice_item_repository.find_by_id('2')
   end
 
   def test_invoice_item_has_id
@@ -27,7 +28,7 @@ class InvoiceItemTest < Minitest::Test
   end  
 
   def test_invoice_item_has_unit_price
-    assert_equal '23324', invoice_item.unit_price
+    assert_equal BigDecimal('23324'), invoice_item.unit_price
   end  
 
   def test_invoice_item_has_created_at

@@ -9,8 +9,8 @@ class Merchant
     @merchant_repository = merchant_repository
     @id = csv_row_data[:id]
     @name = csv_row_data[:name]
-    @created_at = csv_row_data[:created_at]
-    @updated_at = csv_row_data[:updated_at]
+    @created_at = Date.parse(csv_row_data[:created_at])
+    @updated_at = Date.parse(csv_row_data[:updated_at])
 
   end
 
@@ -59,7 +59,7 @@ class Merchant
       end
     else
       successful_invoice_items.each do |ii|
-        total += ii.total_sale if date == Date.parse(ii.created_at[0..9])
+        total += ii.total_sale if date == ii.created_at
       end
     end
     to_big_dec(total)

@@ -7,7 +7,7 @@ require_relative '../lib/sales_engine'
 class CustomerTest < Minitest::Test
 
   def customer
-    @customer ||= SalesEngine.new('test/fixture/').customer_repository.find_by_customer_id('1')
+    @customer ||= SalesEngine.new('test/fixture/').customer_repository.find_by_id('1')
   end
 
   def test_customer_has_a_last_name
@@ -37,6 +37,10 @@ class CustomerTest < Minitest::Test
 
   def test_customer_has_no_created_at
     refute_nil customer.created_at
+  end
+
+  def test_customer_has_favorite_merchant
+    assert_equal '41', customer.favorite_merchant.id
   end
 
 end

@@ -1,6 +1,7 @@
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'bigdecimal'
 
 require_relative '../lib/sales_engine'
 
@@ -22,7 +23,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_invoice_item_id
-    found = @repository.find_by_invoice_item_id('5')
+    found = @repository.find_by_id('5')
     assert_equal '529', found.item_id 
   end
 
@@ -58,12 +59,14 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
 
   def test_find_by_unit_price
-    found = @repository.find_by_unit_price('79140')
+    price = BigDecimal('79140')
+    found = @repository.find_by_unit_price(price)
     assert_equal '529', found.item_id
   end
 
   def test_find_all_by_unit_price
-    found = @repository.find_all_by_unit_price('72018')
+    price = BigDecimal('72018')
+    found = @repository.find_all_by_unit_price(price)
     assert_equal 3, found.count
   end
 
