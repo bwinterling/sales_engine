@@ -2,7 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 
-require_relative '../lib/invoice_item_repository'
+require_relative '../lib/sales_engine'
 
 class InvoiceItemRepositoryTest < Minitest::Test
 

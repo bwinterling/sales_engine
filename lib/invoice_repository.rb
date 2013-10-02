@@ -57,6 +57,10 @@ class InvoiceRepository
     all.find_all { |invoice| invoice.status.downcase == match.downcase }
   end
 
+  def find_all_by_date(date)
+    all.find_all { |invoice| Date.parse(invoice.created_at) == date }
+  end
+
   def find_all_transactions_by_invoice(id)
     @sales_engine.transaction_repository.find_all_by_invoice_id(id)
   end
@@ -77,7 +81,7 @@ class InvoiceRepository
   end
 
   def find_merchants_by(merchant_id)
-    @sales_engine.merchant_repository.find_by_merchant_id(merchant_id)
+    @sales_engine.merchant_repository.find_by_id(merchant_id)
   end
 
 end

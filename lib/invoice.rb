@@ -1,4 +1,5 @@
 require 'csv'
+require 'bigdecimal'
 
 class Invoice
 
@@ -38,7 +39,22 @@ class Invoice
 
   def successful?
     transactions.any? { |transaction| transaction.result == 'success' }
-  end 
+  end
+
+  def pending?
+    transactions.none? { |transaction| transaction.result == 'success' }
+  end
     
+  def revenue
+    total = 0
+    invoice_items.each { |ii| total += ii.total_sale }
+    to_big_dec(total)
+  end
+
+  def to_big_dec(integer)
+    string = (integer / 100.0).to_s
+    BigDecimal(string)
+  end
+
 end
 

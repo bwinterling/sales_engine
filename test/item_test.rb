@@ -7,7 +7,7 @@ require_relative '../lib/sales_engine'
 class ItemTest < Minitest::Test
 
   def item
-    @item ||= SalesEngine.new.item_repository.find_by_item_id('1')
+    @item ||= SalesEngine.new('test/fixture/').item_repository.find_by_item_id('1')
   end
 
   def test_item_has_an_item_id

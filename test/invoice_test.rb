@@ -1,13 +1,14 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/invoice'
+
+require_relative '../lib/sales_engine'
 
 
 class InvoiceTest < Minitest::Test
 
   def invoice
-    @invoice ||= SalesEngine.new.invoice_repository.find_by_invoice_id('1')
+    @invoice ||= SalesEngine.new('test/fixture/').invoice_repository.find_by_invoice_id('1')
   end
 
   def test_invoice_has_an_id
@@ -28,6 +29,20 @@ class InvoiceTest < Minitest::Test
 
   def test_invoice_has_a_created_at
     refute_nil invoice.created_at
+  end
+
+  def test_invoice_revenue
+    assert_equal "21067.77", invoice.revenue.to_s("F")
+  end
+
+  def test_successful?
+    assert invoice.successful?
+  end
+
+  def test_pending?
+    refute invoice.pending?
+    invoice2 = SalesEngine.new('test/fixture/').invoice_repository.find_by_invoice_id('13')
+    assert invoice2.pending?
   end
 
 end

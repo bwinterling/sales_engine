@@ -28,8 +28,8 @@ class MerchantRepositoryTest < Minitest::Test
     assert_nil found2
   end
 
-  def test_merchant_repository_find_by_merchant_id
-    found = @repository.find_by_merchant_id('5')
+  def test_merchant_repository_find_by_id
+    found = @repository.find_by_id('5')
     assert_equal 'Williamson Group', found.name    
   end
 
@@ -39,5 +39,19 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal 2, found.count
   end
 
-# end of MerchantRepositoryTest class
+  def test_merchant_repository_most_revenue
+    assert_equal 5, @repository.most_revenue(5).count
+    assert @repository.most_revenue(5)[0].revenue > @repository.most_items(5)[1].revenue
+  end
+
+  def test_merchant_repository_most_items
+    assert_equal 5, @repository.most_items(5).count
+    assert @repository.most_items(5)[0].items.count > @repository.most_items(5)[1].items.count
+  end
+
+  def test_merchant_repository_all_revenue_by_date
+    date = Date.parse('27 Mar 2012')
+    assert_equal BigDecimal('531107.73'), @repository.revenue(date)
+  end
+
 end

@@ -15,15 +15,23 @@ class Merchant
   end
 
   def items
-    @merchant_repository.find_all_items_by_merchant(@id)
+    @merchant_repository.find_all_items_by_id(@id)
   end
 
   def invoices
-    @merchant_repository.find_all_invoices_by_merchant(@id)
+    @merchant_repository.find_all_invoices_by_id(@id)
+  end
+
+  def customers
+    invoices.collect { |i| i.customer }.uniq
   end
 
   def successful_invoices
     invoices.find_all { |invoice| invoice.successful? }
+  end
+
+  def pending_invoices
+    invoices.find_all { |invoice| invoice.pending? }
   end
 
   def successful_invoice_items
@@ -31,12 +39,35 @@ class Merchant
     results.flatten
   end
 
-  def revenue
+  def successful_invoices_by_customer
+    successful_invoices.group_by { |i| i.customer }
+  end
+
+  def customers_with_pending_invoices
+    customers.find_all { |c| c.has_pending_invoices? }
+  end
+
+  def favorite_customer
+    customers.max_by { |c| c.successful_invoices.count }
+  end
+
+  def revenue(date = 'all')
     total = 0
-    successful_invoice_items.each do |invoice_item|
-      total += invoice_item.total_sale
+    if date == 'all'
+      successful_invoice_items.each do |ii|
+        total += ii.total_sale
+      end
+    else
+      successful_invoice_items.each do |ii|
+        total += ii.total_sale if date == Date.parse(ii.created_at[0..9])
+      end
     end
-    total
+    to_big_dec(total)
+  end
+
+  def to_big_dec(integer)
+    string = (integer / 100.0).to_s
+    BigDecimal(string)
   end
 
 end

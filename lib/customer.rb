@@ -19,5 +19,21 @@ class Customer
     @customer_repository.find_invoices_by(@id)
   end
 
-#end of Customer class
+  def successful_invoices
+    invoices.find_all { |i| i.successful? }
+  end
+
+  def pending_invoices
+    invoices.find_all { |i| i.pending? }
+  end
+
+  def has_pending_invoices?
+    true unless pending_invoices.empty?
+  end
+
+  def transactions
+    transactions = invoices.collect { |i| i.transactions }
+    transactions.flatten
+  end
+
 end

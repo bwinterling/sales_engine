@@ -36,4 +36,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 47, found.count
   end
 
+  def test_invoice_repository_find_all_by_date
+    date = Date.parse('2012-03-27')
+    assert_equal 3, @repository.find_all_by_date(date).count
+  end
+
 end

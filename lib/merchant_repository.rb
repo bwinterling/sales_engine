@@ -1,4 +1,6 @@
 require 'csv'
+require 'bigdecimal'
+
 require_relative 'merchant'
 
 class MerchantRepository
@@ -35,15 +37,34 @@ class MerchantRepository
     all.find_all { |merchant| merchant.name.downcase == match.downcase }
   end
 
-  def find_by_merchant_id(match)
+  def find_by_id(match)
     all.find { |merchant| merchant.id == match }
   end
 
-  def find_all_items_by_merchant(merchant_id)
+  def find_all_items_by_id(merchant_id)
     @sales_engine.item_repository.items.find_all { |item| item.merchant_id == merchant_id }
   end
 
-  def find_all_invoices_by_merchant(merchant_id)
+  def find_all_invoices_by_id(merchant_id)
     @sales_engine.invoice_repository.invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
   end
+
+  def most_revenue(count)
+    merchants_by_rev = merchants.sort_by { |merch| -merch.revenue }
+    merchants_by_rev[0...count]
+  end
+
+  def most_items(count)
+    merchants_by_item = merchants.sort_by { |merch| -merch.items.count }
+    merchants_by_item[0...count]
+  end
+
+  def revenue(date)
+    total = BigDecimal('0')
+    all.each do |merchant|
+      total = total + merchant.revenue(date)
+    end
+    total
+  end
+
 end

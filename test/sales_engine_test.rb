@@ -11,7 +11,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def merchant
-      @engine.merchant_repository.find_by_merchant_id('1')
+      @engine.merchant_repository.find_by_id('1')
   end
 
   def test_merchant_can_list_items
@@ -31,7 +31,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_merchant_can_list_revenue
-    assert_equal 1281794, merchant.revenue
+    assert_equal "12817.94", merchant.revenue.to_s("F")
+  end
+
+  def test_merchant_can_list_revenue_date
+    date = Date.parse("Tue, 27 Mar 2012")
+    assert_equal "12817.94", merchant.revenue(date).to_s("F")
   end
 
   def invoice_id1
@@ -91,6 +96,11 @@ class SalesEngineTest < Minitest::Test
   def test_customer_can_list_invoices
     customer = @engine.customer_repository.customers.find { |cust| cust.id == '3' }
     assert_equal 4, customer.invoices.count
+  end
+
+  def test_customer_can_list_transactions
+    customer = @engine.customer_repository.customers.find { |cust| cust.id == '3' }
+    assert_equal 7, customer.transactions.count
   end
 
 end

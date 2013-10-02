@@ -49,7 +49,7 @@ class ItemRepository
   end
 
   def find_merchant_by(merchant_id)
-    @sales_engine.merchant_repository.find_by_merchant_id(merchant_id)
+    @sales_engine.merchant_repository.find_by_id(merchant_id)
   end
 
 end
