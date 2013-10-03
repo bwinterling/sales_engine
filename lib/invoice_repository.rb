@@ -116,8 +116,9 @@ class InvoiceRepository
   end
 
   def create_invoice_item(item, inv_id, qty)
+    all_invoice_items = invoice_item_repository.all
     row = {
-      id:           (invoice_item_repository.all.count + 1).to_s,
+      id:           (all_invoice_items.count + 1).to_s,
       item_id:      item.id,
       invoice_id:   inv_id,
       quantity:     qty,
@@ -125,7 +126,7 @@ class InvoiceRepository
       created_at:   Date.today.to_s,
       updated_at:   Date.today.to_s
     }
-    invoice_item_repository.all << InvoiceItem.new(invoice_item_repository, row)
+    all_invoice_items << InvoiceItem.new(invoice_item_repository, row)
   end
 
 end

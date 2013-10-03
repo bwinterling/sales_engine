@@ -70,8 +70,9 @@ class Invoice
     unless pending?
       raise ArgumentError.new("Charge rejected: invoice alread paid")
     else
+      all_transactions = transaction_repo.all
       row = {
-        id:           (transaction_repo.all.count + 1).to_s,
+        id:           (all_transactions.count + 1).to_s,
         invoice_id:                   id,
         credit_card_number:           input_hash[:credit_card_number],
         credit_card_expiration_date:  input_hash[:credit_card_expiration],
@@ -79,7 +80,7 @@ class Invoice
         created_at:                   Date.today.to_s,
         updated_at:                   Date.today.to_s
       }
-      transaction_repo.all << Transaction.new(transaction_repo, row)
+      all_transactions << Transaction.new(transaction_repo, row)
     end
   end
 
