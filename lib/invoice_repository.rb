@@ -92,7 +92,7 @@ class InvoiceRepository
   def create(input_hash)
     new_invoice = Invoice.new(self, create_row(input_hash))
     @all << new_invoice
-    process_items_array(input_hash, new_invoice.id)  
+    process_items_array(input_hash, new_invoice.id)
   end
 
   def create_row(input_hash)

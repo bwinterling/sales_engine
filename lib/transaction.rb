@@ -2,7 +2,9 @@ require 'csv'
 
 class Transaction
 
-  attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
+  attr_reader :id, :invoice_id, :credit_card_number,
+    :credit_card_expiration_date, :result, :created_at, :updated_at,
+    :transaction_repository
 
   def initialize(transaction_repository, csv_row_data)
 
@@ -14,11 +16,11 @@ class Transaction
     @result = csv_row_data[:result]
     @created_at = Date.parse(csv_row_data[:created_at])
     @updated_at = Date.parse(csv_row_data[:updated_at])
-  
+
   end
 
   def invoice
-    @transaction_repository.find_invoice_by(@invoice_id)
+    transaction_repository.find_invoice_by(@invoice_id)
   end
 
 #end of Merchant class

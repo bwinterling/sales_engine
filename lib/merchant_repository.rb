@@ -5,6 +5,8 @@ require_relative 'merchant'
 
 class MerchantRepository
 
+  attr_reader :sales_engine
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
@@ -14,7 +16,7 @@ class MerchantRepository
   end
 
   def data_file
-    "#{@sales_engine.dir}merchants.csv"
+    "#{sales_engine.dir}merchants.csv"
   end
 
   def merchants
@@ -42,11 +44,15 @@ class MerchantRepository
   end
 
   def find_all_items_by_id(merchant_id)
-    @sales_engine.item_repository.items.find_all { |item| item.merchant_id == merchant_id }
+    sales_engine.item_repository.items.find_all {
+      |item| item.merchant_id == merchant_id
+    }
   end
 
   def find_all_invoices_by_id(merchant_id)
-    @sales_engine.invoice_repository.invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
+    sales_engine.invoice_repository.invoices.find_all {
+      |invoice| invoice.merchant_id == merchant_id
+    }
   end
 
   def most_revenue(count)

@@ -2,21 +2,20 @@ require 'csv'
 
 class Customer
 
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+  attr_reader :id, :first_name, :last_name, :created_at, :updated_at,
+    :customer_repository
 
   def initialize(customer_repository, csv_row_data)
-
     @customer_repository = customer_repository
     @id = csv_row_data[:id]
     @first_name = csv_row_data[:first_name]
     @last_name = csv_row_data[:last_name]
     @created_at = Date.parse(csv_row_data[:created_at])
     @updated_at = Date.parse(csv_row_data[:updated_at])
-  
   end
 
   def invoices
-    @customer_repository.find_invoices_by(@id)
+    customer_repository.find_invoices_by(@id)
   end
 
   def successful_invoices

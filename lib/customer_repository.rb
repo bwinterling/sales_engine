@@ -3,6 +3,8 @@ require_relative 'customer'
 
 class CustomerRepository
 
+  attr_reader :sales_engine
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
@@ -12,7 +14,7 @@ class CustomerRepository
   end
 
   def data_file
-    "#{@sales_engine.dir}customers.csv"
+    "#{sales_engine.dir}customers.csv"
   end
 
   def customers
@@ -25,7 +27,7 @@ class CustomerRepository
 
   def random
     all.sample
-  end  
+  end
 
   def find_by_id(match)
     all.find { |customer| customer.id == match }
@@ -44,11 +46,11 @@ class CustomerRepository
   end
 
   def find_all_by_last_name(match)
-    all.find_all { |customer| customer.last_name == match }    
+    all.find_all { |customer| customer.last_name == match }
   end
 
   def find_invoices_by(customer_id)
-    @sales_engine.invoice_repository.find_all_by_customer_id(customer_id)
+    sales_engine.invoice_repository.find_all_by_customer_id(customer_id)
   end
 
 end

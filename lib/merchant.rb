@@ -2,10 +2,10 @@ require 'csv'
 
 class Merchant
 
-  attr_reader :id, :name, :created_at, :updated_at
+  attr_reader :id, :name, :created_at, :updated_at, :merchant_repository
 
   def initialize(merchant_repository, csv_row_data)
-    
+
     @merchant_repository = merchant_repository
     @id = csv_row_data[:id]
     @name = csv_row_data[:name]
@@ -15,11 +15,11 @@ class Merchant
   end
 
   def items
-    @merchant_repository.find_all_items_by_id(@id)
+    merchant_repository.find_all_items_by_id(@id)
   end
 
   def invoices
-    @merchant_repository.find_all_invoices_by_id(@id)
+    merchant_repository.find_all_invoices_by_id(@id)
   end
 
   def customers

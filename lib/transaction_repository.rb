@@ -3,6 +3,7 @@ require_relative 'transaction'
 
 class TransactionRepository
 
+  attr_reader :sales_engine
   attr_accessor :all
 
   def initialize(sales_engine)
@@ -14,7 +15,7 @@ class TransactionRepository
   end
 
   def data_file
-    "#{@sales_engine.dir}transactions.csv"
+    "#{sales_engine.dir}transactions.csv"
   end
 
   def transactions
@@ -38,7 +39,7 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(match)
-    all.find_all { |transaction| transaction.invoice_id == match }   
+    all.find_all { |transaction| transaction.invoice_id == match }
   end
 
   def find_by_credit_card_number(match)
@@ -58,7 +59,7 @@ class TransactionRepository
   end
 
   def find_invoice_by(invoice_id)
-    @sales_engine.invoice_repository.find_by_id(invoice_id)
+    sales_engine.invoice_repository.find_by_id(invoice_id)
   end
 
 end

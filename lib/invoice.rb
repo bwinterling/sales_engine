@@ -4,10 +4,10 @@ require_relative 'transaction'
 
 class Invoice
 
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :invoice_repository
+  attr_reader :id, :customer_id, :merchant_id, :status,
+    :created_at, :updated_at, :invoice_repository
 
   def initialize(invoice_repository, csv_row_data)
-    
     @invoice_repository = invoice_repository
     @id = csv_row_data[:id]
     @customer_id = csv_row_data[:customer_id]
@@ -15,7 +15,6 @@ class Invoice
     @status = csv_row_data[:status]
     @created_at = Date.parse(csv_row_data[:created_at])
     @updated_at = Date.parse(csv_row_data[:updated_at])
-    
   end
 
   def transaction_repo
@@ -49,7 +48,7 @@ class Invoice
   def pending?
     transactions.none? { |transaction| transaction.result == 'success' }
   end
-  
+
   def items_sold
     total = 0
     invoice_items.each { |ii| total += ii.quantity.to_i }

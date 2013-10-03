@@ -3,7 +3,8 @@ require 'bigdecimal'
 
 class Item
 
-  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+  attr_reader :id, :name, :description, :unit_price, :merchant_id,
+    :created_at, :updated_at
 
   def initialize(item_repository, csv_row_data)
     @item_repository = item_repository
@@ -43,7 +44,7 @@ class Item
     if date == 'all'
       successful_invoices.each { |si| total += si.revenue }
     else
-      successful_invoices.each { 
+      successful_invoices.each {
         |si| total += si.revenue if date == si.created_at
       }
     end

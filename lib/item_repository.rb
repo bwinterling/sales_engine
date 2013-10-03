@@ -1,8 +1,9 @@
 require 'csv'
 require_relative 'item'
-require 'pry'
 
 class ItemRepository
+
+  attr_reader :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -13,7 +14,7 @@ class ItemRepository
   end
 
   def data_file
-    "#{@sales_engine.dir}items.csv"
+    "#{sales_engine.dir}items.csv"
   end
 
   def items
@@ -53,11 +54,11 @@ class ItemRepository
   end
 
   def find_invoice_items_by(item_id)
-    @sales_engine.invoice_item_repository.find_all_by_item_id(item_id)
+    sales_engine.invoice_item_repository.find_all_by_item_id(item_id)
   end
 
   def find_merchant_by(merchant_id)
-    @sales_engine.merchant_repository.find_by_id(merchant_id)
+    sales_engine.merchant_repository.find_by_id(merchant_id)
   end
 
   def most_revenue(top_x)
