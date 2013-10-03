@@ -1,9 +1,10 @@
 require 'csv'
 require 'bigdecimal'
+require_relative 'transaction'
 
 class Invoice
 
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :invoice_repository
 
   def initialize(invoice_repository, csv_row_data)
     
@@ -17,24 +18,28 @@ class Invoice
     
   end
 
+  def transaction_repo
+    invoice_repository.sales_engine.transaction_repository
+  end
+
   def transactions
-    @invoice_repository.find_all_transactions_by_invoice(@id)
+    invoice_repository.find_all_transactions_by_invoice(@id)
   end
 
   def invoice_items
-    @invoice_repository.find_all_invoice_items_by_invoice(@id)
+    invoice_repository.find_all_invoice_items_by_invoice(@id)
   end
 
   def items
-    @invoice_repository.find_all_items_by_invoice(@id)
+    invoice_repository.find_all_items_by_invoice(@id)
   end
 
   def customer
-    @invoice_repository.find_customer_by_(@customer_id)
+    invoice_repository.find_customer_by_(@customer_id)
   end
 
   def merchant
-    @invoice_repository.find_merchants_by(@merchant_id)
+    invoice_repository.find_merchants_by(@merchant_id)
   end
 
   def successful?
@@ -60,6 +65,23 @@ class Invoice
   def to_big_dec(integer)
     string = (integer / 100.0).to_s
     BigDecimal(string)
+  end
+
+  def charge(input_hash)
+    unless pending?
+      raise ArgumentError.new("Charge rejected: invoice alread paid")
+    else
+      row = {
+        id:           (transaction_repo.all.count + 1).to_s,
+        invoice_id:                   id,
+        credit_card_number:           input_hash[:credit_card_number],
+        credit_card_expiration_date:  input_hash[:credit_card_expiration],
+        result:                       input_hash[:result],
+        created_at:                   Date.today.to_s,
+        updated_at:                   Date.today.to_s
+      }
+      transaction_repo.all << Transaction.new(transaction_repo, row)
+    end
   end
 
 end

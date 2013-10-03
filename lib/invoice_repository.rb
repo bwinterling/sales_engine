@@ -1,9 +1,10 @@
 require 'csv'
 require_relative 'invoice'
+require_relative 'invoice_item'
 
 class InvoiceRepository
 
-  attr_reader :invoice_csv, :invoices
+  attr_reader :invoice_csv, :invoices, :sales_engine
 
   def initialize(sales_engine)
     @sales_engine = sales_engine
@@ -18,7 +19,7 @@ class InvoiceRepository
   end
 
   def data_file
-    "#{@sales_engine.dir}invoices.csv"
+    "#{sales_engine.dir}invoices.csv"
   end
 
   def invoices
@@ -66,7 +67,7 @@ class InvoiceRepository
   end
 
   def find_all_transactions_by_invoice(id)
-    @sales_engine.transaction_repository.find_all_by_invoice_id(id)
+    sales_engine.transaction_repository.find_all_by_invoice_id(id)
   end
 
   def find_all_invoice_items_by_invoice(id)
@@ -76,16 +77,16 @@ class InvoiceRepository
   def find_all_items_by_invoice(id)
     invoice_items = find_all_invoice_items_by_invoice(id)
     items = invoice_items.map do |invoice_item|
-      @sales_engine.item_repository.find_by_id(invoice_item.item_id)
+      sales_engine.item_repository.find_by_id(invoice_item.item_id)
     end
   end
 
   def find_customer_by_(customer_id)
-    @sales_engine.customer_repository.find_by_id(customer_id)
+    sales_engine.customer_repository.find_by_id(customer_id)
   end
 
   def find_merchants_by(merchant_id)
-    @sales_engine.merchant_repository.find_by_id(merchant_id)
+    sales_engine.merchant_repository.find_by_id(merchant_id)
   end
 
   def create(input_hash)

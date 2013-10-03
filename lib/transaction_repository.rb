@@ -3,6 +3,8 @@ require_relative 'transaction'
 
 class TransactionRepository
 
+  attr_accessor :all
+
   def initialize(sales_engine)
     @sales_engine = sales_engine
   end
